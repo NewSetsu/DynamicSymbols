@@ -60,15 +60,15 @@ const bool IntObject::IsEqual(VarBase* other)
     return m_num == other->GetIntVar();
 }
 
-VarBase* IntObject::VarAssign(VarBase* right)
-{
-    // 类型不匹配，不比较
-    if (!this->CheckType(right))
-        return nullptr;
-
-    this->Erase();
-    return right->VarRef();
-}
+//VarBase* IntObject::VarAssign(VarBase* right)
+//{
+//    // 类型不匹配，不比较
+//    if (!this->CheckType(right))
+//        return nullptr;
+//
+//    this->Erase();
+//    return right->VarRef();
+//}
 
 VarBase* IntObject::TransToBool()
 {

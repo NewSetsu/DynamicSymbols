@@ -56,15 +56,16 @@ const bool BoolObject::IsEqual(VarBase* other)
     return m_num == other->GetBoolVar();
 }
 
-VarBase* BoolObject::VarAssign(VarBase* right)
-{
-    // 类型不匹配，不比较
-    if (!this->CheckType(right))
-        return nullptr;
-
-    this->Erase();
-    return right->VarRef();
-}
+//VarBase* BoolObject::VarAssign(VarBase* right)
+//{
+//    // 类型不匹配，不比较
+//    if (!this->CheckType(right))
+//        return nullptr;
+//
+//    this->Erase();
+//
+//    return right->VarRef();
+//}
 
 VarBase* BoolObject::TransToBool()
 {

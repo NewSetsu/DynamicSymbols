@@ -30,7 +30,7 @@ public:
      */
     virtual const bool IsEqual(VarBase* other) override;
 
-    virtual VarBase* VarAssign(VarBase* right) override;
+    // virtual VarBase* VarAssign(VarBase* right) override;
 
     virtual const std::string GetStrVar() override { return m_str; }
 

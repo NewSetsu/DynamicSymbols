@@ -32,7 +32,7 @@ public:
      */
     virtual const bool IsEqual(VarBase* other) override;
 
-    virtual VarBase* VarAssign(VarBase* right) override;
+    // virtual VarBase* VarAssign(VarBase* right) override;
 
     virtual const bool GetBoolVar() override { return static_cast<bool>(m_num); }
 

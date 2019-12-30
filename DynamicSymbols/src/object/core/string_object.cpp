@@ -55,14 +55,14 @@ const bool StringObject::IsEqual(VarBase* other)
     return m_str == other->GetStrVar();
 }
 
-VarBase* StringObject::VarAssign(VarBase* right)
-{
-    if (!this->CheckType(right))
-        return nullptr;
-
-    this->Erase();
-    return right->VarRef();
-}
+//VarBase* StringObject::VarAssign(VarBase* right)
+//{
+//    if (!this->CheckType(right))
+//        return nullptr;
+//
+//    this->Erase();
+//    return right->VarRef();
+//}
 
 VarBase* StringObject::OP_Add(VarBase* right)
 {

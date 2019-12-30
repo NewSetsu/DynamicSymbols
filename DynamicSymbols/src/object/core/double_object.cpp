@@ -55,15 +55,15 @@ const bool DoubleObject::IsEqual(VarBase* other)
     return m_num == other->GetDoublVar();
 }
 
-VarBase* DoubleObject::VarAssign(VarBase* right)
-{
-    // 类型不匹配，不比较
-    if (!this->CheckType(right))
-        return nullptr;
-
-    this->Erase();
-    return right->VarRef();
-}
+//VarBase* DoubleObject::VarAssign(VarBase* right)
+//{
+//    // 类型不匹配，不比较
+//    if (!this->CheckType(right))
+//        return nullptr;
+//
+//    this->Erase();
+//    return right->VarRef();
+//}
 
 VarBase* DoubleObject::TransToBool()
 {

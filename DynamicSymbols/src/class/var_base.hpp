@@ -68,7 +68,7 @@ public:
      * @brief   变量赋值，实际上不会改变this的值，而是用right替换this
      *          但基类的仍然返回null
      */
-    virtual VarBase* VarAssign(VarBase* right);
+    // virtual VarBase* VarAssign(VarBase* right);
 
     /*
      * @brief   NumberMethods
@@ -166,6 +166,13 @@ public:
      */
     virtual VarBase* GetMember(std::string& sub_type);
 
+    /**
+     * @brief 结构体更新成员变量的值，只有Struct和Array的该函数有意义
+     */
+    virtual const bool SetMembers(VarBase* member, VarBase* value);
+
+    // 如果一个变量属于结构体，则该指针有效
+    VarBase* m_holder;
 //public:  // 成员变量
 //    DynamicDescrip*  m_dynamic_struct;      // 结构体描述
 //    ArrayDescrip*    m_array;               // 数组描述

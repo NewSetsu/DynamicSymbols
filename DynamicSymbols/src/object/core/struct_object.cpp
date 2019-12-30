@@ -66,6 +66,7 @@ const bool StructObject::MakeInstance(const StructObject* source)
         if (nullptr == itor.second)
             return false;
         m_members[itor.first] = itor.second->VarInstance();
+        m_members[itor.first]->m_holder = this;
     }
     return true;
 }
@@ -88,4 +89,18 @@ VarBase* StructObject::GetMember(std::string& sub_type)
         return m_members[sub_type];
 
     return nullptr;
+}
+
+const bool StructObject::SetMembers(VarBase* member, VarBase* value)
+{
+    for (auto& itor : m_members)
+    {
+        if (itor.second == member)
+        {
+            itor.second->Erase();
+            itor.second = value->VarRef();
+            return true;
+        }
+    }
+    return false;
 }

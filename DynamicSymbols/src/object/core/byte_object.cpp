@@ -61,15 +61,15 @@ const bool ByteObject::IsEqual(VarBase* other)
     return m_num == other->GetByteVar();
 }
 
-VarBase* ByteObject::VarAssign(VarBase* right)
-{
-    // 类型不匹配，不比较
-    if (!this->CheckType(right))
-        return nullptr;
-
-    this->Erase();
-    return right->VarRef();
-}
+//VarBase* ByteObject::VarAssign(VarBase* right)
+//{
+//    // 类型不匹配，不比较
+//    if (!this->CheckType(right))
+//        return nullptr;
+//
+//    this->Erase();
+//    return right->VarRef();
+//}
 
 VarBase* ByteObject::TransToBool()
 {

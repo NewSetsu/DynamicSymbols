@@ -55,6 +55,14 @@ public:
      *          动态结构体相关操作
      */
     virtual VarBase* GetMember(std::string& sub_type) override;
+
+    /**
+     * @brief   更新成员变量的值
+     * @return  更新成功 | 失败
+     * @param   member 成员变量的地址
+     * @param   value 赋值
+     */
+    virtual const bool SetMembers(VarBase* member, VarBase* value) override;
 private:
     std::string m_type;
     std::map<std::string, VarBase*> m_members;

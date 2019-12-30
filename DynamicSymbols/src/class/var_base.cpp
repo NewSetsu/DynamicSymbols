@@ -4,6 +4,7 @@
 VarBase::VarBase()
 {
     // todo 注意内存安全
+    m_holder = nullptr;
 }
 
 VarBase::~VarBase()
@@ -46,10 +47,10 @@ const bool VarBase::IsEqual(VarBase* other)
     return false;
 }
 
-VarBase* VarBase::VarAssign(VarBase* right)
-{
-    return nullptr;
-}
+//VarBase* VarBase::VarAssign(VarBase* right)
+//{
+//    return nullptr;
+//}
 
 const bool VarBase::GetBoolVar()
 {
@@ -214,4 +215,9 @@ const bool VarBase::AddMember(VarBase* new_member, std::string member_name)
 VarBase* VarBase::GetMember(std::string& sub_type)
 {
     return nullptr;
+}
+
+const bool VarBase::SetMembers(VarBase* member, VarBase* value)
+{
+    return false;
 }
