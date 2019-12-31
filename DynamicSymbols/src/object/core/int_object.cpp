@@ -18,28 +18,29 @@ std::string IntObject::ClassInfo()
     return std::string("IntObject, Var: ") + std::to_string(m_num) + "\r\n";
 }
 
-//VarBase* IntObject::VarCopy()
-//{
-//    return nullptr;
-//}
+VarBase* IntObject::VarCopy()
+{
+    return _MEM_POOL_::IntObjectPool::GetInstance()->CreateIntObject(m_num);
+}
 
 VarBase* IntObject::VarRef()
 {
-    m_use_cnt++;
     return this;
+}
+
+const VarBase* IntObject::VarTemplate()
+{
+    return _MEM_POOL_::IntObjectPool::GetInstance()->GetTemplate();
 }
 
 const bool IntObject::Erase()
 {
-    --m_use_cnt;
-    if (m_use_cnt == 0)
-    {
-        _MEM_POOL_::IntObjectPool::GetInstance()->Recycle(this);
-    }
+
+    _MEM_POOL_::IntObjectPool::GetInstance()->Recycle(this);
     return true;
 }
 
-const std::string& IntObject::VarType()
+const std::string& IntObject::VarType() const
 {
     return ATOMIC_TYPES::INTNUM_TYPE;
 }
@@ -60,15 +61,15 @@ const bool IntObject::IsEqual(VarBase* other)
     return m_num == other->GetIntVar();
 }
 
-//VarBase* IntObject::VarAssign(VarBase* right)
-//{
-//    // 类型不匹配，不比较
-//    if (!this->CheckType(right))
-//        return nullptr;
-//
-//    this->Erase();
-//    return right->VarRef();
-//}
+VarBase* IntObject::VarAssign(VarBase* right)
+{
+    // 类型不匹配，不比较
+    if (!this->CheckType(right))
+        return nullptr;
+
+    this->m_num = right->GetIntVar();
+    return this;
+}
 
 VarBase* IntObject::TransToBool()
 {

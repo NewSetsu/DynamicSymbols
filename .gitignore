@@ -3,3 +3,9 @@
 /DynamicSymbols/obj/*
 /WinPlatform/x64/Debug
 /x64/Debug
+/Debug
+/DynamicSymbols/x64
+/DynamicSymbols/obj
+/DynamicSymbols/Debug
+/DynamicSymbols/bin
+/DynamicSymbols/.vs

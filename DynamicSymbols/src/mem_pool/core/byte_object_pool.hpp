@@ -10,25 +10,31 @@ namespace _MEM_POOL_ {
 
     // Byte内存池
     // 由于Byte只有 0~255，所以只需要一个内存块就可表示所有数据
-    class ByteObjectPool final : public SingletonBase<ByteObjectPool>
+    class ByteObjectPool final 
     {
-        friend class SingletonBase<ByteObjectPool>;
+    private:
+        ByteObjectPool();
+        virtual ~ByteObjectPool() {
+            delete first_block;
+            free_num_cursor = nullptr;
+            first_block = nullptr;
+        }
+        ByteObjectPool(const ByteObjectPool&) = default;
+        ByteObjectPool& operator=(const ByteObjectPool&) = default;
     public:
+        static ByteObjectPool* GetInstance() {
+            static ByteObjectPool instance;
+            return &instance;
+        }
         ByteObject* CreateByteObject(const unsigned char val);
 
         void Recycle(ByteObject* ptr);
 
+        const ByteObject* GetTemplate();
     private:
-        virtual ~ByteObjectPool() {
-            delete byte_block;
-            m_buf = nullptr;
-            byte_block = nullptr;
-        }
-
-        ByteObjectPool();
-    private:
-        MemoryBlock<ByteObject>* byte_block;
-        ByteObject* m_buf;
+        ByteObject m_template;
+        MemoryBlock<ByteObject>* first_block;
+        ByteObject* free_num_cursor;
     };
 
 

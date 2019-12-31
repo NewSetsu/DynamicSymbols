@@ -20,8 +20,7 @@ enum class STRUCT_TYPE : unsigned short
 struct ClassBase
 {
 public:
-    ClassBase() : 
-        m_use_cnt(0)
+    ClassBase() : next_in_pool(nullptr)
     {
 
     }
@@ -32,14 +31,9 @@ public:
 
     virtual const STRUCT_TYPE StructType() = 0;
 
-    virtual const std::string& VarType() = 0;
-
-    virtual void Reset() = 0;
+    virtual const std::string& VarType() const = 0;
 
     // 内存池中的下一个对象
-    ClassBase* next_in_pool = nullptr;
-
-    // 引用计数，方便内存池管理
-    unsigned int m_use_cnt;
+    ClassBase* next_in_pool;
 
 };

@@ -2,6 +2,8 @@
 
 _MEM_POOL_::BoolObjectPool::BoolObjectPool()
 {
+    m_template = BoolObject();
+
     // 申请512个数据的空间
     first_block = new MemoryBlock<BoolObject>();
 
@@ -24,7 +26,7 @@ BoolObject* _MEM_POOL_::BoolObjectPool::CreateBoolObject(const bool val)
         free_num_cursor = first_block->m_buf;
     }
 
-    return static_cast<BoolObject*>(ans->VarRef());
+    return ans;
 }
 
 void _MEM_POOL_::BoolObjectPool::Recycle(BoolObject* ptr)
@@ -32,5 +34,10 @@ void _MEM_POOL_::BoolObjectPool::Recycle(BoolObject* ptr)
     ptr->Reset();
     ptr->next_in_pool = free_num_cursor;
     free_num_cursor = ptr;
+}
+
+const BoolObject* _MEM_POOL_::BoolObjectPool::GetTemplate()
+{
+    return &m_template;
 }
 

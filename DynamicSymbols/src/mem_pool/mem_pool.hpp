@@ -5,5 +5,5 @@
 #include "core/int_object_pool.hpp"
 #include "core/double_object_pool.hpp"
 #include "core/string_object_pool.hpp"
-
+#include "core/array_object_pool.hpp"
 // 其他类型内存池

@@ -5,28 +5,31 @@
 #include "utils/singleton.hpp"
 
 namespace _MEM_POOL_ {
-    // 小整数池 [MIN, MAX) 默认为[-5,256)
-    // 范围不能大于512
-#define CONST_INT_POOL_MIN -5
-#define CONST_INT_POOL_MAX 256
+    // 取消了小整数池的设计
 
-    class IntObjectPool final : public SingletonBase<IntObjectPool>
+    class IntObjectPool final 
     {
-        friend class SingletonBase<IntObjectPool>;
-    public:
-
-        IntObject* CreateIntObject(const int val);
-
-        void Recycle(IntObject* ptr);
-
+    private:
+        IntObjectPool();
         virtual ~IntObjectPool() {
             delete first_block;
         }
+        IntObjectPool(const IntObjectPool&) = default;
+        IntObjectPool& operator=(const IntObjectPool&) = default;
+    public:
+        static IntObjectPool* GetInstance() {
+            static IntObjectPool instance;
+            return &instance;
+        }
+
+        IntObject* CreateIntObject(const int val);
+
+        const IntObject* GetTemplate();
+
+        void Recycle(IntObject* ptr);
     private:
-        IntObjectPool();
-    private:
+        IntObject m_template;
         IntObject* free_num_cursor;
-        IntObject* m_small_pool;
         MemoryBlock<IntObject>* first_block;
     };
 }   // !namespace _MEM_POOL_

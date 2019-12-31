@@ -1,5 +1,12 @@
 ﻿#include "string_object_pool.hpp"
 
+_MEM_POOL_::StringObjectPool::StringObjectPool()
+{
+    m_template = StringObject();
+    first_block = new MemoryBlock<StringObject>;
+    free_num_cursor = first_block->m_buf;
+}
+
 StringObject* _MEM_POOL_::StringObjectPool::CreateStringObject(const char* val)
 {
     auto ans = free_num_cursor;
@@ -14,7 +21,7 @@ StringObject* _MEM_POOL_::StringObjectPool::CreateStringObject(const char* val)
         first_block = tmp_block;
         free_num_cursor = tmp_block->m_buf;
     }
-    return static_cast<StringObject*>(ans->VarRef());
+    return ans;
 }
 
 void _MEM_POOL_::StringObjectPool::Recycle(StringObject* ptr)
@@ -24,8 +31,7 @@ void _MEM_POOL_::StringObjectPool::Recycle(StringObject* ptr)
     free_num_cursor = ptr;
 }
 
-_MEM_POOL_::StringObjectPool::StringObjectPool()
+const StringObject* _MEM_POOL_::StringObjectPool::GetTemplate()
 {
-    first_block = new MemoryBlock<StringObject>;
-    free_num_cursor = first_block->m_buf;
+    return &m_template;
 }

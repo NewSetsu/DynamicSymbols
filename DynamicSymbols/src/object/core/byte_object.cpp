@@ -19,28 +19,28 @@ std::string ByteObject::ClassInfo()
     return std::string("ByteObject, Var: ") + std::to_string(m_num) + "\r\n";
 }
 
-//VarBase* ByteObject::VarCopy()
-//{
-//    return nullptr;
-//}
+VarBase* ByteObject::VarCopy()
+{
+    return _MEM_POOL_::ByteObjectPool::GetInstance()->CreateByteObject(m_num);
+}
 
 VarBase* ByteObject::VarRef()
 {
-    m_use_cnt++;
     return this;
+}
+
+const VarBase* ByteObject::VarTemplate()
+{
+    return _MEM_POOL_::ByteObjectPool::GetInstance()->GetTemplate();
 }
 
 const bool ByteObject::Erase()
 {
-    --m_use_cnt;
-    if (m_use_cnt == 0)
-    {
-        _MEM_POOL_::ByteObjectPool::GetInstance()->Recycle(this);
-    }
+    _MEM_POOL_::ByteObjectPool::GetInstance()->Recycle(this);
     return true;
 }
 
-const std::string& ByteObject::VarType()
+const std::string& ByteObject::VarType() const
 {
     return ATOMIC_TYPES::BYTE_TYPE;
 }
@@ -61,15 +61,15 @@ const bool ByteObject::IsEqual(VarBase* other)
     return m_num == other->GetByteVar();
 }
 
-//VarBase* ByteObject::VarAssign(VarBase* right)
-//{
-//    // 类型不匹配，不比较
-//    if (!this->CheckType(right))
-//        return nullptr;
-//
-//    this->Erase();
-//    return right->VarRef();
-//}
+VarBase* ByteObject::VarAssign(VarBase* right)
+{
+    // 类型不匹配，不比较
+    if (!this->CheckType(right))
+        return nullptr;
+
+    this->m_num = right->GetByteVar();
+    return this;
+}
 
 VarBase* ByteObject::TransToBool()
 {

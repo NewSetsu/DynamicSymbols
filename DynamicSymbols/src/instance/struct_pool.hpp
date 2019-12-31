@@ -9,10 +9,18 @@
 namespace _MEM_POOL_ {
     class StructObjectPool;
     
-    class DynamicPool : public utils::SingletonBase<DynamicPool>
+    class DynamicPool final
     {
-        friend class SingletonBase<DynamicPool>;
+    private:
+        DynamicPool();
+        virtual ~DynamicPool();
+        DynamicPool(const DynamicPool&) = default;
+        DynamicPool& operator=(const DynamicPool&) = default;
     public:
+        static DynamicPool* GetInstance() {
+            static DynamicPool instance;
+            return &instance;
+        }
         const bool NewStructPool(std::string type_name);
 
         StructObject* CreateStructObject(std::string type_name);
@@ -20,12 +28,6 @@ namespace _MEM_POOL_ {
         void Recycle(StructObject* ptr);
 
         // const bool InitDynamicPool();
-
-    private:
-        DynamicPool() {}
-
-        virtual ~DynamicPool();
-
     private:
         std::map<std::string, StructObjectPool*> all_struct_pool;
     };

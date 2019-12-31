@@ -26,11 +26,15 @@ public:
 
     virtual VarBase* VarRef() override;
 
-    virtual VarBase* VarInstance() override;
+    virtual VarBase* VarCopy() override;
+
+    virtual const VarBase* VarTemplate() override;
+
+    // virtual VarBase* VarInstance() override;
 
     virtual const bool Erase() override;
 
-    virtual const std::string& VarType() override;
+    virtual const std::string& VarType() const override;
 
     virtual const bool CheckType(VarBase* other) override;
 
@@ -62,7 +66,7 @@ public:
      * @param   member 成员变量的地址
      * @param   value 赋值
      */
-    virtual const bool SetMembers(VarBase* member, VarBase* value) override;
+    virtual const bool SetMembers(VarBase* member, VarBase* value, const bool is_check = false) override;
 private:
     std::string m_type;
     std::map<std::string, VarBase*> m_members;

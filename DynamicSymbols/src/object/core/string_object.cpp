@@ -20,21 +20,26 @@ std::string StringObject::ClassInfo()
 
 VarBase* StringObject::VarRef()
 {
-    m_use_cnt++;
     return this;
+}
+
+const VarBase* StringObject::VarTemplate()
+{
+    return _MEM_POOL_::StringObjectPool::GetInstance()->GetTemplate();
+}
+
+VarBase* StringObject::VarCopy()
+{
+    return _MEM_POOL_::StringObjectPool::GetInstance()->CreateStringObject(m_str.c_str());
 }
 
 const bool StringObject::Erase()
 {
-    --m_use_cnt;
-    if (m_use_cnt == 0)
-    {
-        _MEM_POOL_::StringObjectPool::GetInstance()->Recycle(this);
-    }
+    _MEM_POOL_::StringObjectPool::GetInstance()->Recycle(this);
     return true;
 }
 
-const std::string& StringObject::VarType()
+const std::string& StringObject::VarType() const
 {
     return ATOMIC_TYPES::STRING_TYPE;
 }
@@ -55,14 +60,14 @@ const bool StringObject::IsEqual(VarBase* other)
     return m_str == other->GetStrVar();
 }
 
-//VarBase* StringObject::VarAssign(VarBase* right)
-//{
-//    if (!this->CheckType(right))
-//        return nullptr;
-//
-//    this->Erase();
-//    return right->VarRef();
-//}
+VarBase* StringObject::VarAssign(VarBase* right)
+{
+    if (!this->CheckType(right))
+        return nullptr;
+
+    this->m_str = right->GetStrVar();
+    return this;
+}
 
 VarBase* StringObject::OP_Add(VarBase* right)
 {

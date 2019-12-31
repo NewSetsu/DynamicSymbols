@@ -2,35 +2,19 @@
 
 using namespace _MEM_POOL_;
 
-_MEM_POOL_::IntObjectPool::IntObjectPool()
+_MEM_POOL_::IntObjectPool::IntObjectPool():
+    m_template(IntObject())
 {
     // 申请第一块空间，大小512
     first_block = new MemoryBlock<IntObject>();
     // 指向空间的首地址
     free_num_cursor = first_block->m_buf;
-    m_small_pool = free_num_cursor;
 
-    // 小整数池填充
-    for (int i = 0; i < CONST_INT_POOL_MAX; i++)
-    {
-        m_small_pool[i].SetVal(i + CONST_INT_POOL_MIN);
-        m_small_pool[i].m_use_cnt = 1;
-    }
-    // 
-    free_num_cursor += CONST_INT_POOL_MAX;
 }
 
 
 IntObject* _MEM_POOL_::IntObjectPool::CreateIntObject(const int val)
-{
-    // 小整数
-    if (val > CONST_INT_POOL_MIN && val < CONST_INT_POOL_MAX)
-    {
-        return static_cast<IntObject*>(
-            m_small_pool[val - CONST_INT_POOL_MIN].VarRef()
-            );
-    }
-    
+{   
     auto ans = free_num_cursor;
     ans->SetVal(val);
 
@@ -45,7 +29,12 @@ IntObject* _MEM_POOL_::IntObjectPool::CreateIntObject(const int val)
         free_num_cursor = first_block->m_buf;
     }
 
-    return static_cast<IntObject*>(ans->VarRef());
+    return ans;
+}
+
+const IntObject* _MEM_POOL_::IntObjectPool::GetTemplate()
+{
+    return &m_template;
 }
 
 void _MEM_POOL_::IntObjectPool::Recycle(IntObject* ptr)
