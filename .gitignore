@@ -1,3 +1,5 @@
 /.vs/*
 /DynamicSymbols/bin/*
 /DynamicSymbols/obj/*
+/WinPlatform/x64/Debug
+/x64/Debug
