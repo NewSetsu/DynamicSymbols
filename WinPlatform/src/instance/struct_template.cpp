@@ -1,5 +1,6 @@
 ﻿#include "struct_template.h"
 #include "mem_pool/mem_pool.hpp"
+#include "instance.hpp"
 
 StructObject INNER_STRUCT::PositionStruct()
 {
@@ -41,5 +42,17 @@ StructObject INNER_STRUCT::ConfdataStruct()
     ans.AddMember(int_3, "CF3");
     ans.AddMember(int_4, "CF4");
     ans.SetTemplateType("CONFDATA");
+    return ans;
+}
+
+StructObject INNER_STRUCT::PoseStruct()
+{
+    StructObject ans;
+    auto position = RL_Template::GetInstance()->GetTemplate("POSITION");
+    auto orient = RL_Template::GetInstance()->GetTemplate("ORIENT");
+
+    ans.AddMember(position, "POSI");
+    ans.AddMember(orient, "ORI");
+    ans.SetTemplateType("POSE");
     return ans;
 }

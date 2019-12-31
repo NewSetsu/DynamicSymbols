@@ -3,7 +3,7 @@
 #include "basic_def/basic_def.h"
 
 
-enum STRUCT_TYPE : unsigned char
+enum class STRUCT_TYPE : unsigned short
 {
     NULL_TYPE = 0,  // VarBase专属类型
     ATOMIC,         // 元子类型 int, byte, double, bool, string

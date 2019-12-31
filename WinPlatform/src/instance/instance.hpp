@@ -20,10 +20,12 @@ public:
     const bool AddTemplate(StructObject&& struct_template);
 
     // 获得一个模板
-    const StructObject* GetTemplate(std::string type);
+    StructObject* GetTemplate(std::string type);
 
     // 获得所有模板
     std::vector<std::string> GetAllTemplate();
+
+    const bool InitTemplate();
 private:
     RL_Template();
 

@@ -2,7 +2,7 @@
 #include "instance.hpp"
 #include <iostream>
 
-const bool _MEM_POOL_::DynamicPool::NewStructPool(std::string& type_name)
+const bool _MEM_POOL_::DynamicPool::NewStructPool(std::string type_name)
 {
     if (!RL_Template::GetInstance()->TypeExist(type_name))
         return false;
@@ -13,7 +13,7 @@ const bool _MEM_POOL_::DynamicPool::NewStructPool(std::string& type_name)
     return true;
 }
 
-StructObject* _MEM_POOL_::DynamicPool::CreateStructObject(std::string& type_name)
+StructObject* _MEM_POOL_::DynamicPool::CreateStructObject(std::string type_name)
 {
     if (all_struct_pool.count(type_name) == 0)
         return nullptr;
@@ -30,18 +30,25 @@ void _MEM_POOL_::DynamicPool::Recycle(StructObject* ptr)
     all_struct_pool.at(ptr->VarType())->Recycle(ptr);
 }
 
-_MEM_POOL_::DynamicPool::DynamicPool()
-{
-    auto template_vecs = RL_Template::GetInstance()->GetAllTemplate();
+//const bool _MEM_POOL_::DynamicPool::InitDynamicPool()
+//{
+//    auto template_vecs = RL_Template::GetInstance()->GetAllTemplate();
+//
+//    for (auto& itor : template_vecs)
+//    {
+//        auto new_pool = new StructObjectPool(itor);
+//        //all_struct_pool.insert(std::make_pair(itor, std::move(new_pool)));
+//        all_struct_pool.insert(std::make_pair(itor, std::move(new_pool)));
+//    }
+//
+//    return false;
+//}
 
-    for (auto &itor : template_vecs)
-    {
-        auto new_pool = new StructObjectPool(itor);
-        //all_struct_pool.insert(std::make_pair(itor, std::move(new_pool)));
-        all_struct_pool.insert(std::make_pair(itor, std::move(new_pool)));
-    }
-
-}
+//_MEM_POOL_::DynamicPool::DynamicPool()
+//{
+//
+//
+//}
 
 _MEM_POOL_::DynamicPool::~DynamicPool()
 {

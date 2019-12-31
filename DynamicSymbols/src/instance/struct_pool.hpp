@@ -13,14 +13,16 @@ namespace _MEM_POOL_ {
     {
         friend class SingletonBase<DynamicPool>;
     public:
-        const bool NewStructPool(std::string& type_name);
+        const bool NewStructPool(std::string type_name);
 
-        StructObject* CreateStructObject(std::string& type_name);
+        StructObject* CreateStructObject(std::string type_name);
 
         void Recycle(StructObject* ptr);
 
+        // const bool InitDynamicPool();
+
     private:
-        DynamicPool();
+        DynamicPool() {}
 
         virtual ~DynamicPool();
 

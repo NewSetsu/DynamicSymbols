@@ -1,5 +1,6 @@
 ﻿#include "instance.hpp"
 #include "struct_template.h"
+#include "struct_pool.hpp"
 
 std::vector<std::string> RL_Template::GetAllTemplate()
 {
@@ -11,12 +12,22 @@ std::vector<std::string> RL_Template::GetAllTemplate()
     return ans;
 }
 
-RL_Template::RL_Template()
+const bool RL_Template::InitTemplate()
 {
-    // 依次记录内建结构体的模板
+    // 基本结构体
     this->AddTemplate(INNER_STRUCT::PositionStruct());
     this->AddTemplate(INNER_STRUCT::OrientStruct());
     this->AddTemplate(INNER_STRUCT::ConfdataStruct());
+
+    // 高级结构体
+    this->AddTemplate(INNER_STRUCT::PoseStruct());
+    return true;
+}
+
+RL_Template::RL_Template()
+{
+    // 依次记录内建结构体的模板
+
 }
 
 RL_Template::~RL_Template()
@@ -36,10 +47,13 @@ const bool RL_Template::AddTemplate(StructObject&& struct_template)
         return false;
 
     m_struct_template[struct_template.VarType()] = struct_template;
+
+    _MEM_POOL_::DynamicPool::GetInstance()->NewStructPool(struct_template.VarType());
+
     return true;
 }
 
-const StructObject* RL_Template::GetTemplate(std::string type)
+StructObject* RL_Template::GetTemplate(std::string type)
 {
     if (this->TypeExist(type))
         return &m_struct_template[type];

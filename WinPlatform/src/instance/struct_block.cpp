@@ -10,10 +10,11 @@ namespace _MEM_POOL_ {
         auto struct_template = RL_Template::GetInstance()->GetTemplate(type_name);
 
         // 很危险，程序正在实例化一个不存在的对象
-        if (struct_template == nullptr)
-            return;
+        //if (struct_template == nullptr)
+        //    return;
 
         m_buf = new StructObject[STRUCT_BLOCK_SIZE];
+        this->next = nullptr;
 
         for (int i = 0; i < STRUCT_BLOCK_SIZE - 1; i++)
         {
@@ -30,12 +31,6 @@ namespace _MEM_POOL_ {
     {
         if (next)
             next->~StructBlock();
-
-        for (int i = 0; i < 64; i++)
-        {
-            m_buf[i].Erase();
-        }
-
         delete[] m_buf;
     }
 

@@ -19,6 +19,7 @@
 // 顺序依次为 类型转换器、模板、基元内存池、数组内存池、结构体内存池
 void Init()
 {
+    // 依次执行所有对象的 GetInstance，这一步他们之间没有依赖关系
     TransferCheck::GetInstance();
 
     RL_Template::GetInstance();
@@ -34,6 +35,11 @@ void Init()
     STRING_OBJECT_POOL;
 
     STRUCT_OBJECT_POOL;
+
+    // 执行每个对象的第二步初始化
+    RL_Template::GetInstance()->InitTemplate();
+
+    // STRUCT_OBJECT_POOL->InitDynamicPool();
 }
 
 // 全局单例析构，顺序与初始化相反
