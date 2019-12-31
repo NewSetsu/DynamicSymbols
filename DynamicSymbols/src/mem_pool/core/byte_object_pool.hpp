@@ -20,15 +20,15 @@ namespace _MEM_POOL_ {
 
     private:
         virtual ~ByteObjectPool() {
-            delete byte_block;
-            m_buf = nullptr;
-            byte_block = nullptr;
+            delete first_block;
+            free_num_cursor = nullptr;
+            first_block = nullptr;
         }
 
         ByteObjectPool();
     private:
-        MemoryBlock<ByteObject>* byte_block;
-        ByteObject* m_buf;
+        MemoryBlock<ByteObject>* first_block;
+        ByteObject* free_num_cursor;
     };
 
 

@@ -5,10 +5,7 @@
 #include "utils/singleton.hpp"
 
 namespace _MEM_POOL_ {
-    // 小整数池 [MIN, MAX) 默认为[-5,256)
-    // 范围不能大于512
-#define CONST_INT_POOL_MIN -5
-#define CONST_INT_POOL_MAX 256
+    // 取消了小整数池的设计
 
     class IntObjectPool final : public SingletonBase<IntObjectPool>
     {

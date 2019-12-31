@@ -23,7 +23,7 @@ DoubleObject* _MEM_POOL_::DoubleObjectPool::CreateDoubleObject(const double val)
         free_num_cursor = first_block->m_buf;
     }
 
-    return static_cast<DoubleObject*>(ans->VarRef());
+    return ans;
 }
 
 void _MEM_POOL_::DoubleObjectPool::Recycle(DoubleObject* ptr)

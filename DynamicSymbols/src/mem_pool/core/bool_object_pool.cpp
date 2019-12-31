@@ -24,7 +24,7 @@ BoolObject* _MEM_POOL_::BoolObjectPool::CreateBoolObject(const bool val)
         free_num_cursor = first_block->m_buf;
     }
 
-    return static_cast<BoolObject*>(ans->VarRef());
+    return ans;
 }
 
 void _MEM_POOL_::BoolObjectPool::Recycle(BoolObject* ptr)

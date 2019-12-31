@@ -14,7 +14,7 @@ StringObject* _MEM_POOL_::StringObjectPool::CreateStringObject(const char* val)
         first_block = tmp_block;
         free_num_cursor = tmp_block->m_buf;
     }
-    return static_cast<StringObject*>(ans->VarRef());
+    return ans;
 }
 
 void _MEM_POOL_::StringObjectPool::Recycle(StringObject* ptr)

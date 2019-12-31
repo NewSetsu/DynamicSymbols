@@ -28,16 +28,22 @@ public:
 
     /*
      * @brief   变量引用
-     * @return  返回owner
+     * @return  this指针
      * @param   void
      */
     virtual VarBase* VarRef();
 
     /**
+     * @brief   变量拷贝
+     * @return  从内存池中创建一个对象的拷贝
+     */
+    virtual VarBase* VarCopy() = 0;
+
+    /**
      * @brief   一个变量类型 实例化自己 (通过内存池 或者 模板管理器)
      * @return  实例化对象后的指针
      */
-    virtual VarBase* VarInstance() { return this->VarRef(); }
+    virtual VarBase* VarInstance() { return this->VarCopy(); }
 
     /*
      * @brief   RL语言层面的数据销毁，派生类应该在销毁后调用内存池的回收功能
@@ -50,7 +56,14 @@ public:
      * @return  str 要添加动态类型，不能使用枚举类型作为type
      * @param   void
      */
-    virtual const std::string& VarType() override;
+    virtual const std::string& VarType() const override;
+
+    /**
+     * @brief   
+     * @return
+     * @param
+     */
+    virtual void Reset() = 0;
 
     /*
      * @brief   变量类型检测，检测通过两个变量才能进行运算
@@ -68,7 +81,7 @@ public:
      * @brief   变量赋值，实际上不会改变this的值，而是用right替换this
      *          但基类的仍然返回null
      */
-    // virtual VarBase* VarAssign(VarBase* right);
+    virtual VarBase* VarAssign(VarBase* right);
 
     /*
      * @brief   NumberMethods
@@ -142,16 +155,17 @@ public:
     // 数组已申请的空间
     virtual const uint32_t GetCapacity() const;
 
-    // 数组单个元素的大小
-    virtual const uint32_t GetUnitSize() const;
-
     // 扩展数组，返回扩展后数组的大小，不允许扩展返回 0
     virtual const uint32_t AppendArr(VarBase* _unit);
 
     // 删除数组的元素
-    virtual const bool EraseUnit(const uint32_t _num);
+    virtual const bool EraseUnit(const uint32_t _num, const bool is_check = false);
 
+    // 修改数组对象的值
+    virtual const bool SetArrUnit(VarBase* unit, const bool is_check = false);
 
+    // 获得数组元素
+    virtual VarBase* GetArrUnit(const uint32_t num);
     /**
      * @brief   结构体添加一个成员
      * @return  添加是否成功
@@ -169,11 +183,8 @@ public:
     /**
      * @brief 结构体更新成员变量的值，只有Struct和Array的该函数有意义
      */
-    virtual const bool SetMembers(VarBase* member, VarBase* value);
+    virtual const bool SetMembers(VarBase* member, VarBase* value, const bool is_check = false);
 
     // 如果一个变量属于结构体，则该指针有效
     VarBase* m_holder;
-//public:  // 成员变量
-//    DynamicDescrip*  m_dynamic_struct;      // 结构体描述
-//    ArrayDescrip*    m_array;               // 数组描述
 };

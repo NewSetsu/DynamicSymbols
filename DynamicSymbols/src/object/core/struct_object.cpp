@@ -18,15 +18,19 @@ std::string StructObject::ClassInfo()
 
 VarBase* StructObject::VarRef()
 {
-    ++m_use_cnt;
     return this;
 }
 
-VarBase* StructObject::VarInstance()
+VarBase* StructObject::VarCopy()
 {
     // 从内存池中实例化一个
     return _MEM_POOL_::DynamicPool::GetInstance()->CreateStructObject(m_type);
 }
+
+//VarBase* StructObject::VarInstance()
+//{
+//    
+//}
 
 const bool StructObject::Erase()
 {
@@ -37,7 +41,7 @@ const bool StructObject::Erase()
     return true;
 }
 
-const std::string& StructObject::VarType()
+const std::string& StructObject::VarType() const
 {
     return m_type;
 }
@@ -59,7 +63,7 @@ const bool StructObject::MakeInstance(const StructObject* source)
 {
     // warning 这给了Struct改变type的能力
     // 变量类型应该交给模板管理器管理
-    m_type = const_cast<StructObject*>(source)->VarType();
+    m_type = source->VarType();
 
     for (auto& itor : source->m_members)
     {
@@ -91,12 +95,15 @@ VarBase* StructObject::GetMember(std::string& sub_type)
     return nullptr;
 }
 
-const bool StructObject::SetMembers(VarBase* member, VarBase* value)
+const bool StructObject::SetMembers(VarBase* member, VarBase* value, const bool is_check)
 {
     for (auto& itor : m_members)
     {
         if (itor.second == member)
         {
+            // 检查阶段直接返回true，不进行实际操作
+            if (is_check)
+                return true;
             itor.second->Erase();
             itor.second = value->VarRef();
             return true;

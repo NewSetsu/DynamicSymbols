@@ -3,7 +3,7 @@
 namespace _MEM_POOL_ {
 
     // 单个内存块的数据量， 实际占据空间为 512 * sizeof(T)
-    constexpr const int BLOCK_SIZE = 512;
+    constexpr const int BLOCK_SIZE = 4096;
 
     /*!
      * \struct  MemoryBlock

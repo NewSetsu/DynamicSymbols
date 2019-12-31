@@ -15,13 +15,13 @@ public:
 
     virtual const STRUCT_TYPE StructType()  override { return STRUCT_TYPE::ATOMIC; }
 
-    //virtual VarBase* VarCopy() override;
+    virtual VarBase* VarCopy() override;
 
     virtual VarBase* VarRef() override;
 
     virtual const bool Erase() override;
 
-    virtual const std::string& VarType() override;
+    virtual const std::string& VarType() const override;
 
     virtual const bool CheckType(VarBase* other) override;
 
@@ -32,7 +32,7 @@ public:
      */
     virtual const bool IsEqual(VarBase* other) override;
 
-    // virtual VarBase* VarAssign(VarBase* right) override;
+    virtual VarBase* VarAssign(VarBase* right) override;
 
     virtual const bool GetBoolVar() override { return static_cast<bool>(m_num); }
 

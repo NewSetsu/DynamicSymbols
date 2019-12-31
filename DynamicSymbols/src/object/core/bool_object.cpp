@@ -21,21 +21,21 @@ std::string BoolObject::ClassInfo()
 
 VarBase* BoolObject::VarRef()
 {
-    m_use_cnt++;
     return this;
+}
+
+VarBase* BoolObject::VarCopy()
+{
+    return _MEM_POOL_::BoolObjectPool::GetInstance()->CreateBoolObject(m_num);
 }
 
 const bool BoolObject::Erase()
 {
-    --m_use_cnt;
-    if (m_use_cnt == 0)
-    {
-        _MEM_POOL_::BoolObjectPool::GetInstance()->Recycle(this);
-    }
+    _MEM_POOL_::BoolObjectPool::GetInstance()->Recycle(this);
     return true;
 }
 
-const std::string& BoolObject::VarType()
+const std::string& BoolObject::VarType() const
 {
     return ATOMIC_TYPES::BOOL_TYPE;
 }
@@ -56,16 +56,16 @@ const bool BoolObject::IsEqual(VarBase* other)
     return m_num == other->GetBoolVar();
 }
 
-//VarBase* BoolObject::VarAssign(VarBase* right)
-//{
-//    // 类型不匹配，不比较
-//    if (!this->CheckType(right))
-//        return nullptr;
-//
-//    this->Erase();
-//
-//    return right->VarRef();
-//}
+VarBase* BoolObject::VarAssign(VarBase* right)
+{
+    // 类型不匹配，不比较
+    if (!this->CheckType(right))
+        return nullptr;
+
+    this->m_num = right->GetBoolVar();
+
+    return this;
+}
 
 VarBase* BoolObject::TransToBool()
 {
@@ -125,7 +125,7 @@ VarBase* BoolObject::OP_Div(VarBase* right)
     if (right->GetBoolVar() != 0)
     {
         return _MEM_POOL_::BoolObjectPool::GetInstance()->CreateBoolObject(
-            m_num / right->GetBoolVar()
+            static_cast<int>(m_num)/ static_cast<int>(right->GetBoolVar())
         );
     }
 
@@ -141,7 +141,7 @@ VarBase* BoolObject::OP_Res(VarBase* right)
     if (right->GetBoolVar() != 0)
     {
         return _MEM_POOL_::BoolObjectPool::GetInstance()->CreateBoolObject(
-            m_num % right->GetBoolVar()
+            static_cast<int>(m_num) % static_cast<int>(right->GetBoolVar())
         );
     }
 

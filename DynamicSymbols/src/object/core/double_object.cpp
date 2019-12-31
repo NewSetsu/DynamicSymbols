@@ -18,14 +18,13 @@ std::string DoubleObject::ClassInfo()
     return std::string("DoubleObject, Var: ") + std::to_string(m_num) + "\r\n";
 }
 
-//VarBase* DoubleObject::VarCopy()
-//{
-//    return nullptr;
-//}
+VarBase* DoubleObject::VarCopy()
+{
+    return _MEM_POOL_::DoubleObjectPool::GetInstance()->CreateDoubleObject(m_num);
+}
 
 VarBase* DoubleObject::VarRef()
 {
-    m_use_cnt++;
     return this;
 }
 
@@ -34,7 +33,7 @@ const bool DoubleObject::Erase()
     return false;
 }
 
-const std::string& DoubleObject::VarType()
+const std::string& DoubleObject::VarType() const
 {
     return ATOMIC_TYPES::DOUBLE_TYPE;
 }
@@ -55,15 +54,15 @@ const bool DoubleObject::IsEqual(VarBase* other)
     return m_num == other->GetDoublVar();
 }
 
-//VarBase* DoubleObject::VarAssign(VarBase* right)
-//{
-//    // 类型不匹配，不比较
-//    if (!this->CheckType(right))
-//        return nullptr;
-//
-//    this->Erase();
-//    return right->VarRef();
-//}
+VarBase* DoubleObject::VarAssign(VarBase* right)
+{
+    // 类型不匹配，不比较
+    if (!this->CheckType(right))
+        return nullptr;
+
+    this->m_num = right->GetDoublVar();
+    return this;
+}
 
 VarBase* DoubleObject::TransToBool()
 {

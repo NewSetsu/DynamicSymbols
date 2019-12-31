@@ -32,7 +32,7 @@ const bool VarBase::Erase()
     return false;
 }
 
-const std::string& VarBase::VarType()
+const std::string& VarBase::VarType() const
 {
     return ATOMIC_TYPES::EMPTY_TYPE;
 }
@@ -47,10 +47,10 @@ const bool VarBase::IsEqual(VarBase* other)
     return false;
 }
 
-//VarBase* VarBase::VarAssign(VarBase* right)
-//{
-//    return nullptr;
-//}
+VarBase* VarBase::VarAssign(VarBase* right)
+{
+    return nullptr;
+}
 
 const bool VarBase::GetBoolVar()
 {
@@ -192,17 +192,22 @@ const uint32_t VarBase::GetCapacity() const
     return uint32_t();
 }
 
-const uint32_t VarBase::GetUnitSize() const
-{
-    return uint32_t();
-}
-
 const uint32_t VarBase::AppendArr(VarBase* _unit)
 {
     return uint32_t();
 }
 
-const bool VarBase::EraseUnit(const uint32_t _num)
+const bool VarBase::EraseUnit(const uint32_t _num, const bool is_check)
+{
+    return false;
+}
+
+VarBase* VarBase::GetArrUnit(const uint32_t num)
+{
+    return nullptr;
+}
+
+const bool VarBase::SetArrUnit(VarBase* unit, const bool is_check)
 {
     return false;
 }
@@ -217,7 +222,7 @@ VarBase* VarBase::GetMember(std::string& sub_type)
     return nullptr;
 }
 
-const bool VarBase::SetMembers(VarBase* member, VarBase* value)
+const bool VarBase::SetMembers(VarBase* member, VarBase* value, const bool is_check)
 {
     return false;
 }
