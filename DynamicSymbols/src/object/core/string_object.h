@@ -18,6 +18,8 @@ public:
 
     virtual VarBase* VarRef() override;
 
+    virtual const VarBase* VarTemplate() override;
+
     virtual const bool Erase() override;
 
     virtual const std::string& VarType() const override;

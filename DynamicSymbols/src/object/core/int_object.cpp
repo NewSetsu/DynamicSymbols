@@ -28,6 +28,11 @@ VarBase* IntObject::VarRef()
     return this;
 }
 
+const VarBase* IntObject::VarTemplate()
+{
+    return _MEM_POOL_::IntObjectPool::GetInstance()->GetTemplate();
+}
+
 const bool IntObject::Erase()
 {
 

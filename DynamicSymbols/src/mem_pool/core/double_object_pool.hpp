@@ -6,21 +6,28 @@
 
 namespace _MEM_POOL_ {
 
-    class DoubleObjectPool : public SingletonBase<DoubleObjectPool>
+    class DoubleObjectPool final
     {
-        friend class SingletonBase<DoubleObjectPool>;
+    private:
+        DoubleObjectPool();
+        virtual ~DoubleObjectPool() {
+            delete first_block;
+        }
+        DoubleObjectPool(const DoubleObjectPool&) = default;
+        DoubleObjectPool& operator=(const DoubleObjectPool&) = default;
     public:
+        static DoubleObjectPool* GetInstance() {
+            static DoubleObjectPool instance;
+            return &instance;
+        }
+
         DoubleObject* CreateDoubleObject(const double val);
 
         void Recycle(DoubleObject* ptr);
 
+        const DoubleObject* GetTemplate();
     private:
-        virtual ~DoubleObjectPool() {
-            delete first_block;
-        }
-
-        DoubleObjectPool();
-    private:
+        DoubleObject m_template;
         DoubleObject* free_num_cursor;
         MemoryBlock<DoubleObject>* first_block;
     };

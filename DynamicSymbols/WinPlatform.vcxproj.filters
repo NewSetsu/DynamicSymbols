@@ -102,6 +102,9 @@
     <ClInclude Include="src\utils\timer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\mem_pool\core\array_object_pool.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\class\description.cpp">
@@ -162,6 +165,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mem_pool\core\array_object_pool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

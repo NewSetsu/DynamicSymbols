@@ -138,6 +138,7 @@
     <ClInclude Include="src\instance\struct_block.hpp" />
     <ClInclude Include="src\instance\struct_pool.hpp" />
     <ClInclude Include="src\instance\struct_template.h" />
+    <ClInclude Include="src\mem_pool\core\array_object_pool.hpp" />
     <ClInclude Include="src\mem_pool\core\bool_object_pool.hpp" />
     <ClInclude Include="src\mem_pool\core\byte_object_pool.hpp" />
     <ClInclude Include="src\mem_pool\core\double_object_pool.hpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="src\instance\struct_pool.cpp" />
     <ClCompile Include="src\instance\struct_template.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\mem_pool\core\array_object_pool.cpp" />
     <ClCompile Include="src\mem_pool\core\bool_object_pool.cpp" />
     <ClCompile Include="src\mem_pool\core\byte_object_pool.cpp" />
     <ClCompile Include="src\mem_pool\core\double_object_pool.cpp" />

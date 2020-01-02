@@ -5,20 +5,28 @@
 #include "utils/singleton.hpp"
 
 namespace _MEM_POOL_ {
-    class StringObjectPool : public SingletonBase<StringObjectPool>
+    class StringObjectPool final
     {
-        friend class SingletonBase<StringObjectPool>;
-    public:
-        StringObject* CreateStringObject(const char* val);
-
-        void Recycle(StringObject* ptr);
-
     private:
         virtual ~StringObjectPool() {
             delete first_block;
         }
         StringObjectPool();
+        StringObjectPool(const StringObjectPool&) = default;
+        StringObjectPool& operator=(const StringObjectPool&) = default;
+    public:
+        static StringObjectPool* GetInstance() {
+            static StringObjectPool instance;
+            return &instance;
+        }
+
+        StringObject* CreateStringObject(const char* val);
+
+        void Recycle(StringObject* ptr);
+
+        const StringObject* GetTemplate();
     private:
+        StringObject m_template;
         StringObject* free_num_cursor;
         MemoryBlock<StringObject>* first_block;
 

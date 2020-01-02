@@ -9,10 +9,18 @@
 *   能通过这个模板获得对象的 “实例”
 **************************************************************************/
 
-class RL_Template final : public SingletonBase<RL_Template>
+class RL_Template final 
 {
-    friend class SingletonBase<RL_Template>;
+private:
+    RL_Template();
+    virtual ~RL_Template();
+    RL_Template(const RL_Template&) = default;
+    RL_Template& operator=(const RL_Template&) = default;
 public:
+    static RL_Template* GetInstance() {
+        static RL_Template instance;
+        return &instance;
+    }
     // 判断一个模板名是否被占用
     const bool TypeExist(std::string type);
 
@@ -26,10 +34,7 @@ public:
     std::vector<std::string> GetAllTemplate();
 
     const bool InitTemplate();
-private:
-    RL_Template();
 
-    virtual ~RL_Template();
 private:
     // 模板池， 任何结构体的初始模板都在模板池中
     std::map<std::string, StructObject> m_struct_template;

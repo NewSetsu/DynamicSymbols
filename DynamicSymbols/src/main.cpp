@@ -7,23 +7,31 @@ int main()
 {
     Init();
 
-    // 实验证明，使用内存池快了 3 倍以上
-    ChronoTimer new_timer;
-    for (int i = 0; i < 1000000; i++)
+    auto int_arr = ARRAY_OBJECT_POOL()->CreateNewArray(_MEM_POOL_::GetIntArrID());
+    
+    // 一维数组
+    for (int i = 0; i < 5; i++)
     {
-        auto p = new IntObject[10];
-        delete []p;
+        int_arr->PushBack(INT_OBJECT_POOL()->CreateIntObject(i));
     }
-    cout << "no pool using time: " << new_timer.GetDurationMS() << "ms \r\n";
 
-    new_timer.Restart();
-    for (int i = 0; i < 10000000; i++)
+    cout << int_arr->ClassInfo();
+
+    auto x1 = int_arr->GetArrUnit(0);
+    x1->VarAssign(INT_OBJECT_POOL()->CreateIntObject(99));
+    cout << x1->ClassInfo();
+    cout << int_arr->GetArrUnit(0)->ClassInfo();
+
+    // 二维数组
+    auto int_arr_arr_id = ARRAY_OBJECT_POOL()->RegAnArray(int_arr);
+    auto int_arr_arr = ARRAY_OBJECT_POOL()->CreateNewArray(int_arr_arr_id);
+
+    for (int i = 0; i < 7; i++)
     {
-        auto p = INT_OBJECT_POOL->CreateIntObject(i);
-        p->Erase();
+        int_arr_arr->PushBack(ARRAY_OBJECT_POOL()->CreateNewArray(_MEM_POOL_::GetBoolArrID()));
     }
-    cout << "mem pool using time: " << new_timer.GetDurationMS() << "ms \r\n";
-    Destory();
+
+    cout << int_arr_arr->ClassInfo();
 
     return 0;
 }

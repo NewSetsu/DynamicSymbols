@@ -28,6 +28,11 @@ VarBase* DoubleObject::VarRef()
     return this;
 }
 
+const VarBase* DoubleObject::VarTemplate()
+{
+    return _MEM_POOL_::DoubleObjectPool::GetInstance()->GetTemplate();
+}
+
 const bool DoubleObject::Erase()
 {
     return false;

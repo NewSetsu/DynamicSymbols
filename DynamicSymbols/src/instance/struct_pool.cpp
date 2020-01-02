@@ -44,11 +44,10 @@ void _MEM_POOL_::DynamicPool::Recycle(StructObject* ptr)
 //    return false;
 //}
 
-//_MEM_POOL_::DynamicPool::DynamicPool()
-//{
-//
-//
-//}
+_MEM_POOL_::DynamicPool::DynamicPool()
+{
+
+}
 
 _MEM_POOL_::DynamicPool::~DynamicPool()
 {

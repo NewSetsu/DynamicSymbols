@@ -192,7 +192,7 @@ const uint32_t VarBase::GetCapacity() const
     return uint32_t();
 }
 
-const uint32_t VarBase::AppendArr(VarBase* _unit)
+const uint32_t VarBase::PushBack(VarBase* _unit)
 {
     return uint32_t();
 }

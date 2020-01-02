@@ -2,13 +2,13 @@
 
 using namespace _MEM_POOL_;
 
-_MEM_POOL_::IntObjectPool::IntObjectPool()
+_MEM_POOL_::IntObjectPool::IntObjectPool():
+    m_template(IntObject())
 {
     // 申请第一块空间，大小512
     first_block = new MemoryBlock<IntObject>();
     // 指向空间的首地址
     free_num_cursor = first_block->m_buf;
-    m_small_pool = free_num_cursor;
 
 }
 
@@ -30,6 +30,11 @@ IntObject* _MEM_POOL_::IntObjectPool::CreateIntObject(const int val)
     }
 
     return ans;
+}
+
+const IntObject* _MEM_POOL_::IntObjectPool::GetTemplate()
+{
+    return &m_template;
 }
 
 void _MEM_POOL_::IntObjectPool::Recycle(IntObject* ptr)

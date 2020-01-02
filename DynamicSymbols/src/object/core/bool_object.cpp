@@ -24,6 +24,11 @@ VarBase* BoolObject::VarRef()
     return this;
 }
 
+const VarBase* BoolObject::VarTemplate()
+{
+    return _MEM_POOL_::BoolObjectPool::GetInstance()->GetTemplate();
+}
+
 VarBase* BoolObject::VarCopy()
 {
     return _MEM_POOL_::BoolObjectPool::GetInstance()->CreateBoolObject(m_num);

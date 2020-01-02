@@ -28,6 +28,8 @@ public:
 
     virtual VarBase* VarCopy() override;
 
+    virtual const VarBase* VarTemplate() override;
+
     // virtual VarBase* VarInstance() override;
 
     virtual const bool Erase() override;

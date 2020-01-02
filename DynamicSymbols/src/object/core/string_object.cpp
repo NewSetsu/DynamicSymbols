@@ -23,6 +23,11 @@ VarBase* StringObject::VarRef()
     return this;
 }
 
+const VarBase* StringObject::VarTemplate()
+{
+    return _MEM_POOL_::StringObjectPool::GetInstance()->GetTemplate();
+}
+
 VarBase* StringObject::VarCopy()
 {
     return _MEM_POOL_::StringObjectPool::GetInstance()->CreateStringObject(m_str.c_str());

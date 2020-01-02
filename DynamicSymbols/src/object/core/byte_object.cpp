@@ -29,6 +29,11 @@ VarBase* ByteObject::VarRef()
     return this;
 }
 
+const VarBase* ByteObject::VarTemplate()
+{
+    return _MEM_POOL_::ByteObjectPool::GetInstance()->GetTemplate();
+}
+
 const bool ByteObject::Erase()
 {
     _MEM_POOL_::ByteObjectPool::GetInstance()->Recycle(this);

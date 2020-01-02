@@ -1,6 +1,7 @@
 ﻿#include "struct_object.h"
 #include "utils/transfer_check.hpp"
 #include "instance/struct_pool.hpp"
+#include "instance/instance.hpp"
 
 const bool StructObject::SetTemplateType(std::string type)
 {
@@ -25,6 +26,11 @@ VarBase* StructObject::VarCopy()
 {
     // 从内存池中实例化一个
     return _MEM_POOL_::DynamicPool::GetInstance()->CreateStructObject(m_type);
+}
+
+const VarBase* StructObject::VarTemplate()
+{
+    return RL_Template::GetInstance()->GetTemplate(m_type);
 }
 
 //VarBase* StructObject::VarInstance()

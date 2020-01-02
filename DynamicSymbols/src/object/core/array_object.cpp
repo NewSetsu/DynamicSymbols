@@ -1,5 +1,27 @@
 ﻿#include "array_object.h"
 #include "utils/transfer_check.hpp"
+#include "mem_pool/mem_pool.hpp"
+
+ArrayObject::ArrayObject() :
+    m_temp_id(-1),
+    m_template_ptr(nullptr)
+{
+
+}
+
+void ArrayObject::CreateArrayTemplate(VarBase* sub_unit_ptr, const int arr_id)
+{
+    m_template_ptr = const_cast<VarBase*>(sub_unit_ptr->VarTemplate());
+    m_type = sub_unit_ptr->VarType() + "'s Array \r\n";
+    m_temp_id = arr_id;
+}
+
+void ArrayObject::InitByTemplate(ArrayObject* arr_temp)
+{
+    m_temp_id = arr_temp->m_temp_id;
+    m_template_ptr = arr_temp->m_template_ptr;
+    m_type = arr_temp->m_type;
+}
 
 std::string ArrayObject::ClassInfo()
 {
@@ -13,6 +35,21 @@ VarBase* ArrayObject::VarRef()
     return this;
 }
 
+VarBase* ArrayObject::VarCopy()
+{
+    auto ans = _MEM_POOL_::ArrayPool::GetInstance()->CreateNewArray(m_temp_id);
+    for (auto& itor : m_array)
+    {
+        ans->PushBack(itor);
+    }
+    return ans;
+}
+
+const VarBase* ArrayObject::VarTemplate()
+{
+    return _MEM_POOL_::ArrayPool::GetInstance()->GetTemplate(m_temp_id);
+}
+
 //VarBase* ArrayObject::VarInstance()
 //{
 //    return nullptr;
@@ -21,7 +58,8 @@ VarBase* ArrayObject::VarRef()
 const bool ArrayObject::Erase()
 {
     // 从数组管理器中回收
-    return false;
+    _MEM_POOL_::ArrayPool::GetInstance()->Recycle(this);
+    return true;
 }
 
 const std::string& ArrayObject::VarType() const
@@ -66,9 +104,14 @@ const uint32_t ArrayObject::GetCapacity() const
     return static_cast<uint32_t>(m_array.capacity());
 }
 
-const uint32_t ArrayObject::AppendArr(VarBase* _unit)
+const uint32_t ArrayObject::PushBack(VarBase* _unit)
 {
-    m_array.push_back(_unit);
+    if (m_template_ptr == _unit->VarTemplate())
+        m_array.push_back(_unit->VarCopy());
+    else
+    {
+        // 输出错误
+    }
     return static_cast<uint32_t>(m_array.size());
 }
 

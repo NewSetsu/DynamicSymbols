@@ -45,6 +45,12 @@ public:
      */
     virtual VarBase* VarInstance() { return this->VarCopy(); }
 
+    /**
+     * @brief   返回对象自身的模板
+     * @return  "模板"
+     */
+    virtual const VarBase* VarTemplate() = 0;
+
     /*
      * @brief   RL语言层面的数据销毁，派生类应该在销毁后调用内存池的回收功能
      * @param   void
@@ -156,7 +162,7 @@ public:
     virtual const uint32_t GetCapacity() const;
 
     // 扩展数组，返回扩展后数组的大小，不允许扩展返回 0
-    virtual const uint32_t AppendArr(VarBase* _unit);
+    virtual const uint32_t PushBack(VarBase* _unit);
 
     // 删除数组的元素
     virtual const bool EraseUnit(const uint32_t _num, const bool is_check = false);

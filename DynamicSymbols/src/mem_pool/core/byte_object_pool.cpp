@@ -1,6 +1,18 @@
 ﻿#include "byte_object_pool.hpp"
 #include "byte_object_pool.hpp"
 
+_MEM_POOL_::ByteObjectPool::ByteObjectPool()
+{
+    m_template = ByteObject();
+    first_block = new MemoryBlock<ByteObject>;
+    free_num_cursor = first_block->m_buf;
+
+    for (int i = 0; i < CONST_BYTE_POOL_MAX - CONST_BYTE_POOL_MIN; i++)
+    {
+        free_num_cursor[i].SetVal(static_cast<unsigned char>(i));
+    }
+}
+
 ByteObject* _MEM_POOL_::ByteObjectPool::CreateByteObject(const unsigned char val)
 {
     auto ans = free_num_cursor;
@@ -26,13 +38,9 @@ void _MEM_POOL_::ByteObjectPool::Recycle(ByteObject* ptr)
     free_num_cursor = ptr;
 }
 
-_MEM_POOL_::ByteObjectPool::ByteObjectPool()
+const ByteObject* _MEM_POOL_::ByteObjectPool::GetTemplate()
 {
-    first_block = new MemoryBlock<ByteObject>;
-    free_num_cursor = first_block->m_buf;
-
-    for (int i = 0; i < CONST_BYTE_POOL_MAX - CONST_BYTE_POOL_MIN; i++)
-    {
-        free_num_cursor[i].SetVal(static_cast<unsigned char>(i));
-    }
+    return &m_template;
 }
+
+
