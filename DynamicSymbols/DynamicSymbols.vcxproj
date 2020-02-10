@@ -59,9 +59,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -84,6 +86,7 @@
     <ClInclude Include="src\instance\struct_block.hpp" />
     <ClInclude Include="src\instance\struct_pool.hpp" />
     <ClInclude Include="src\instance\struct_template.h" />
+    <ClInclude Include="src\mem_pool\core\array_object_pool.hpp" />
     <ClInclude Include="src\object\atomic_object.h" />
     <ClInclude Include="src\object\core\array_object.h" />
     <ClInclude Include="src\instance\instance.hpp" />
@@ -107,6 +110,7 @@
     <ClInclude Include="src\object\core\string_object.h" />
     <ClInclude Include="src\utils\noncopyable.hpp" />
     <ClInclude Include="src\utils\singleton.hpp" />
+    <ClInclude Include="src\utils\timer.h" />
     <ClInclude Include="src\utils\transfer_check.hpp" />
     <ClInclude Include="src\object\core\struct_object.h" />
   </ItemGroup>
@@ -115,6 +119,7 @@
     <ClCompile Include="src\instance\struct_block.cpp" />
     <ClCompile Include="src\instance\struct_pool.cpp" />
     <ClCompile Include="src\instance\struct_template.cpp" />
+    <ClCompile Include="src\mem_pool\core\array_object_pool.cpp" />
     <ClCompile Include="src\object\core\array_object.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\mem_pool\core\bool_object_pool.cpp" />

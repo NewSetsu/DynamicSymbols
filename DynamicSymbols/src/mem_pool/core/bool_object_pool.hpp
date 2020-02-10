@@ -29,7 +29,7 @@ namespace _MEM_POOL_ {
 
         void Recycle(BoolObject* ptr);
 
-        const BoolObject* GetTemplate();
+        BoolObject* GetTemplate();
 
     private:
         BoolObject m_template;

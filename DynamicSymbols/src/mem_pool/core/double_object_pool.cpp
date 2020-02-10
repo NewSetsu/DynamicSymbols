@@ -34,7 +34,7 @@ void _MEM_POOL_::DoubleObjectPool::Recycle(DoubleObject* ptr)
     free_num_cursor = ptr;
 }
 
-const DoubleObject* _MEM_POOL_::DoubleObjectPool::GetTemplate()
+DoubleObject* _MEM_POOL_::DoubleObjectPool::GetTemplate()
 {
     return &m_template;
 }

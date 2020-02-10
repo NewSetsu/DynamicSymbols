@@ -26,8 +26,7 @@ const bool RL_Template::InitTemplate()
 
 RL_Template::RL_Template()
 {
-    // 依次记录内建结构体的模板
-
+    // do nothing
 }
 
 RL_Template::~RL_Template()

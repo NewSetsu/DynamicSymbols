@@ -24,7 +24,7 @@ namespace _MEM_POOL_ {
 
         IntObject* CreateIntObject(const int val);
 
-        const IntObject* GetTemplate();
+        IntObject* GetTemplate();
 
         void Recycle(IntObject* ptr);
     private:

@@ -42,7 +42,7 @@ namespace _MEM_POOL_ {
         const int RegAnArray(VarBase* sub_unit);
 
         // 获得数组模板
-        const VarBase* GetTemplate(const int arr_id);
+        VarBase* GetTemplate(const int arr_id);
     private:
 
     private:

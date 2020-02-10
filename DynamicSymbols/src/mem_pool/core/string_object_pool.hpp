@@ -24,7 +24,7 @@ namespace _MEM_POOL_ {
 
         void Recycle(StringObject* ptr);
 
-        const StringObject* GetTemplate();
+        StringObject* GetTemplate();
     private:
         StringObject m_template;
         StringObject* free_num_cursor;

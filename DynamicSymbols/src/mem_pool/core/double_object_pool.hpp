@@ -25,7 +25,7 @@ namespace _MEM_POOL_ {
 
         void Recycle(DoubleObject* ptr);
 
-        const DoubleObject* GetTemplate();
+        DoubleObject* GetTemplate();
     private:
         DoubleObject m_template;
         DoubleObject* free_num_cursor;

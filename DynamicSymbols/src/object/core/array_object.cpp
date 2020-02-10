@@ -127,7 +127,7 @@ VarBase* ArrayObject::GetArrUnit(const uint32_t num)
 
 const bool ArrayObject::SetArrUnit(VarBase* unit, const bool is_check)
 {
-    for (int i = 0; i < m_array.size(); i++)
+    for (int i = 0; i < static_cast<int>(m_array.size()); i++)
     {
         if (m_array[i] == unit)
         {

@@ -36,7 +36,7 @@ void _MEM_POOL_::BoolObjectPool::Recycle(BoolObject* ptr)
     free_num_cursor = ptr;
 }
 
-const BoolObject* _MEM_POOL_::BoolObjectPool::GetTemplate()
+BoolObject* _MEM_POOL_::BoolObjectPool::GetTemplate()
 {
     return &m_template;
 }

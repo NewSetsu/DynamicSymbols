@@ -32,7 +32,7 @@ IntObject* _MEM_POOL_::IntObjectPool::CreateIntObject(const int val)
     return ans;
 }
 
-const IntObject* _MEM_POOL_::IntObjectPool::GetTemplate()
+IntObject* _MEM_POOL_::IntObjectPool::GetTemplate()
 {
     return &m_template;
 }

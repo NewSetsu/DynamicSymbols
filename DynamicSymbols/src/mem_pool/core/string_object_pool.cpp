@@ -31,7 +31,7 @@ void _MEM_POOL_::StringObjectPool::Recycle(StringObject* ptr)
     free_num_cursor = ptr;
 }
 
-const StringObject* _MEM_POOL_::StringObjectPool::GetTemplate()
+StringObject* _MEM_POOL_::StringObjectPool::GetTemplate()
 {
     return &m_template;
 }

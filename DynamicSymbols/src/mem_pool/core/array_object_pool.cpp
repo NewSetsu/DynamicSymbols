@@ -14,7 +14,7 @@ _MEM_POOL_::ArrayPool::ArrayPool()
 
 
     // 创建基元类型的数组
-    BOOL_ARRAY_ID = RegAnArray(const_cast<BoolObject*>(BoolObjectPool::GetInstance()->GetTemplate()));
+    BOOL_ARRAY_ID = RegAnArray(BoolObjectPool::GetInstance()->GetTemplate());
     BYTE_ARRAY_ID = RegAnArray(const_cast<ByteObject*>(ByteObjectPool::GetInstance()->GetTemplate()));
     INT_ARRAY_ID = RegAnArray(const_cast<IntObject*>(IntObjectPool::GetInstance()->GetTemplate()));
     DOUBLE_ARRAY_ID = RegAnArray(const_cast<DoubleObject*>(DoubleObjectPool::GetInstance()->GetTemplate()));
@@ -71,7 +71,7 @@ const int _MEM_POOL_::ArrayPool::RegAnArray(VarBase* sub_unit)
     return ans_id;
 }
 
-const VarBase* _MEM_POOL_::ArrayPool::GetTemplate(const int arr_id)
+VarBase* _MEM_POOL_::ArrayPool::GetTemplate(const int arr_id)
 {
     if (arr_id < 0 || arr_id >= static_cast<int>(m_array_template.size()))
         return nullptr;
